@@ -1,0 +1,36 @@
+{
+  "name": "react_course",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --hot --inline",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "webpack": "^2.7.0",
+    "webpack-dev-server": "^2.0.0"
+  },
+  "dependencies": {
+    "babbel": "^3.0.12",
+    "babel": "^6.23.0",
+    "build": "^0.1.4",
+    "react": "^15.6.2",
+    "react-dom": "^15.3.2"
+  }
+}
