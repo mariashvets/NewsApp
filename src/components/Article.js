@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ArticleCommentsList from "./ArticleCommentsList";
+import CommentsList from "./CommentsList";
 
 
 
@@ -26,7 +26,7 @@ export default class Article extends  Component {
         return this.state.isOpen &&
             <div>
                 {this.props.article.text}
-                <ArticleCommentsList comments = {this.props.article.comments}/>
+                <CommentsList comments = {this.props.article.comments}/>
             </div>
     }
 
