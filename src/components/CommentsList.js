@@ -1,16 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Comment from './Comment';
 import toggleOpen from '../decorators/toggleOpen';
 
  function CommentsList (props) {
-
-     const {isOpen, toggleOpen} = props;
-
-    // static defaultProps = {
-    //     comments :[]
-    // };
+    const {isOpen, toggleOpen} = props;
 
     const title = isOpen ? "Hide comments" : "Show comments";
+
     return (
         <div>
             <h3 onClick={toggleOpen}>{title}</h3>
@@ -31,6 +28,13 @@ import toggleOpen from '../decorators/toggleOpen';
         );
     }
 }
+
+CommentsList.PropTypes = {
+    comments: PropTypes.array,
+    isOpen: PropTypes.bool,
+    toggleOpen: PropTypes.func
+};
+
 export default toggleOpen(CommentsList);
 
 
