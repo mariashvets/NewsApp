@@ -34,7 +34,6 @@ class App extends Component {
 
     }
 
-
     updateCounter  = ev => {
         ev.preventDefault();
         this.setState({
