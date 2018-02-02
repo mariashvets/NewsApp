@@ -3,6 +3,8 @@ import CommentsList from "../CommentsList";
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import './style.css';
+import {connect} from 'react-redux';
+import {deleteArticle} from '../../AC/';
 
 
 
@@ -14,6 +16,7 @@ class Article extends Component {
         return (
             <section>
                 <h2 onClick={toggleOpen}>{article.title} </h2>
+                <a href="#" onClick={this.handleDelete}>delete me</a>
                 <CSSTransitionGroup transitionName="article"
                                     transitionEnterTimeout={500}
                                     transitionLeaveTimeout={300}>
@@ -39,6 +42,12 @@ class Article extends Component {
                 <CommentsList comments = {article.comments}/>
             </div>
     }
+
+    handleDelete = ev => {
+        ev.preventDefault();
+        const {deleteArticle, article} = this.props;
+        deleteArticle(article.id);
+    }
 }
 
 Article.PropTypes = {
@@ -46,5 +55,5 @@ Article.PropTypes = {
     toggleOpen: PropTypes.func.isRequired
 };
 
-export default Article;
+export default connect(null, {deleteArticle})(Article);
 

@@ -8,59 +8,51 @@ class AddCommentsForm extends Component {
 
     state = {
         user : '',
-        text: '',
-        valid: 'valid',
-        errorText: ''
-    };
-
-    handleChangeUserName = (ev) => {
-        this.setState({
-            user: ev.target.value
-        })
-    };
-
-    handleChangeCommentText = (ev) => {
-        this.validateCommentText(ev.target.value);
-    };
-
-    submitComment = (ev) => {
-        if(this.validateUserName(this.state.user) && this.validateCommentText(this.state.text)) {
-            alert('Your form was submitted!');
-            return;
-        }
-        alert ('Something went wrong. Check your form.');
-    };
-
-    validateCommentText = (text) => {
-        if(text.length < 10) {
-            this.setState({ text: text, errorText: 'Your comment should include more than 10 symbols.', valid: 'error'});
-            return false;
-        }
-
-        if(text.length > 20) {
-            this.setState({ errorText: 'Only 20 symbols allowed.', valid: 'error'});
-            return false;
-        }
-
-        this.setState({text: text, valid: 'valid'});
-        return true;
-    };
-
-    validateUserName = (userName) => {
-        if(userName !== '') return true;
+        comment: '',
     };
 
     render(){
         return <div>
-            <form>
-                <input type="text" placeholder="User name" value={this.state.user} onChange={this.handleChangeUserName}/>
-                <label htmlFor="comment" className={this.state.valid}> {this.state.errorText}</label>
-                <textarea placeholder="Comment text" name="comment" className={this.state.valid} value={this.state.text} onChange={this.handleChangeCommentText}/>
-                <button type="button" onClick={this.submitComment}>Submit</button>
+            <form onSubmit={this.handleSubmit}>
+                user: <input type="text"
+                             value={this.state.user}
+                             className={this.getClassName('user')}
+                             onChange={this.handleChange('user')}/>
+
+                {/*<label htmlFor="comment"*/}
+                       {/*className={this.state.valid}> {this.state.errorText}</label>*/}
+
+                comment: <input className={this.getClassName('comment')}
+                                value={this.state.comment}
+                                onChange={this.handleChange('comment')}/>
+
+                <input type="submit" value="Submit"/>
             </form>
         </div>
-
     }
+
+    handleSubmit = (ev) => {
+        ev.preventDefault();
+        console.log(this.state);
+        this.setState({
+            user: '',
+            comment: ''
+        })
+    };
+
+    getClassName = type => this.state[type].length && this.state[type].length < 10 ? 'form-input__error' : '';
+
+    handleChange = (type) => (ev) => {
+        const {value} = ev.target;
+
+        if(value.length > 20) return;
+        this.setState({
+            [type]: value,
+        })
+    }
+
+
+
 }
 
 export default AddCommentsForm;

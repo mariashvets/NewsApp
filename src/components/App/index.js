@@ -5,35 +5,40 @@ import Charts from '../Charts';
 import UserForm from '../UserForm';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import Counter from '../Counter';
 
 class App extends Component {
 
     static propTypes = {
-        articles: PropTypes.array.isRequired
     };
 
     state = {
         counter: 0,
-        selection: null
+        selection: null,
     };
 
     render(){
 
-        const options = this.props.articles.map(article => ({
-            label: article.title,
-            value: article.id
-        }));
+        // const options = this.props.articles.map(article => ({
+        //     label: article.title,
+        //     value: article.id
+        // }));
 
         return <div>
+            <Counter/>
             <h3>Hello world!</h3>
-            <Select options={options} value={this.state.selection} onChange={this.handleSelectionChange} multi/>
+            {/*<Select options={options} value={this.state.selection} onChange={this.handleSelectionChange} multi/>*/}
             <a href="#" onClick={this.updateCounter}>update chart</a>
             <UserForm/>
-            <ArticleList articles={this.props.articles} />
-            <Charts articles={this.props.articles} key={this.state.counter}/>
+            <ArticleList/>
+            <Charts articles={[]} key={this.state.counter}/>
         </div>
 
     }
+
+    onChange = date => {
+        debugger;
+        this.setState({ date })};
 
     updateCounter  = ev => {
         ev.preventDefault();

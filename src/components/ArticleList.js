@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import accordion from '../decorators/accordion';
 import Article from './Article/index.js';
+import {connect} from 'react-redux';
 
 
 class ArticleList  extends Component {
@@ -32,11 +33,16 @@ class ArticleList  extends Component {
     }
 }
 
-export default accordion(ArticleList);
+export default connect(({articles}) => ({articles}))(accordion(ArticleList));
+
+// function(state){
+//     return {
+//         articles: state.articles;
+//     }
+// }
 
 
-
-
+//
 // export default function ArticleList ({articles}) {
 //
 //     const elements = articles.map((article) => {

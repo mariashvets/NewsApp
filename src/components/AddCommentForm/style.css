@@ -1,16 +1,11 @@
-input,
-textarea {
+input{
     display: block;
     width: 150px;
     margin-bottom: 20px;
-    border-color: black;
 }
 
-textarea.error:focus {
-    border-color: red;
-}
 
-.error {
+.form-input__error {
     border-color: red;
 }
 
