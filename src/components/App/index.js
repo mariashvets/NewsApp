@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import ArticleList from './ArticleList';
-import Charts from './Charts';
-import UserForm from './UserForm';
+import ArticleList from '../ArticleList';
+import Charts from '../Charts';
+import UserForm from '../UserForm';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -25,6 +25,7 @@ class App extends Component {
         }));
 
         return <div>
+            <h3>Hello world!</h3>
             <Select options={options} value={this.state.selection} onChange={this.handleSelectionChange} multi/>
             <a href="#" onClick={this.updateCounter}>update chart</a>
             <UserForm/>

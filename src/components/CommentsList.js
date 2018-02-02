@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Comment from './Comment';
+import AddCommentsForm from './AddCommentForm/index';
 import toggleOpen from '../decorators/toggleOpen';
+
 
  function CommentsList (props) {
     const {isOpen, toggleOpen} = props;
@@ -11,6 +13,7 @@ import toggleOpen from '../decorators/toggleOpen';
     return (
         <div>
             <h3 onClick={toggleOpen}>{title}</h3>
+            <AddCommentsForm/>
             {getComments(props)}
         </div>
     );

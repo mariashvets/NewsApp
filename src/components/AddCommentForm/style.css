@@ -1,0 +1,25 @@
+input,
+textarea {
+    display: block;
+    width: 150px;
+    margin-bottom: 20px;
+    border-color: black;
+}
+
+textarea.error:focus {
+    border-color: red;
+}
+
+.error {
+    border-color: red;
+}
+
+label {
+    opacity:0;
+    color:red;
+    font-size:12px;
+}
+
+label.error{
+    opacity:1;
+}
