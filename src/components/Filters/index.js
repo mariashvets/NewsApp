@@ -4,18 +4,9 @@ import NewsDayPicker from './DayPicker/index';
 import SelectFilter from './SelectFilter/index';
 import {connect} from 'react-redux';
 
-class Filters extends Component {
+function Filters (props) {
 
-    static propTypes = {
-        articles: PropTypes.array
-    };
-
-    constructor(){
-        super()
-    };
-
-    render(){
-        const options = this.props.articles.map(article => ({
+        const options = props.articles.map(article => ({
             label: article.title,
             value: article.id
         }));
@@ -23,8 +14,11 @@ class Filters extends Component {
                     <SelectFilter options={options}/>
                     <NewsDayPicker/>
                 </div>);
-    }
 }
+
+Filters.propTypes = {
+    articles: PropTypes.array
+};
 
 export default connect(({articles}) => ({articles}))(Filters);
 
