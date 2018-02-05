@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import ArticleList from '../ArticleList';
 import Charts from '../Charts';
 import UserForm from '../UserForm';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 import Counter from '../Counter';
+import Filters from '../Filters/index';
 
 class App extends Component {
 
@@ -14,31 +13,23 @@ class App extends Component {
 
     state = {
         counter: 0,
-        selection: null,
     };
 
     render(){
-
-        // const options = this.props.articles.map(article => ({
-        //     label: article.title,
-        //     value: article.id
-        // }));
-
         return <div>
             <Counter/>
-            <h3>Hello world!</h3>
-            {/*<Select options={options} value={this.state.selection} onChange={this.handleSelectionChange} multi/>*/}
+            <Filters/>
             <a href="#" onClick={this.updateCounter}>update chart</a>
             <UserForm/>
             <ArticleList/>
             <Charts articles={[]} key={this.state.counter}/>
         </div>
-
     }
 
     onChange = date => {
         debugger;
-        this.setState({ date })};
+        this.setState({ date })
+    };
 
     updateCounter  = ev => {
         ev.preventDefault();
@@ -46,9 +37,6 @@ class App extends Component {
             counter: this.state.counter + 1
         });
     };
-
-    handleSelectionChange = selection => {this.setState({selection})};
-
 }
 
 export default App;
