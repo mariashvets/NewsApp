@@ -27,7 +27,6 @@ class App extends Component {
     }
 
     onChange = date => {
-        debugger;
         this.setState({ date })
     };
 

@@ -19,8 +19,6 @@ class Filters extends Component {
             label: article.title,
             value: article.id
         }));
-
-
         return (<div>
                     <SelectFilter options={options}/>
                     <NewsDayPicker/>
