@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import {connect} from 'react-redux';
+import {changeDateRange} from '../../../AC';
 
 
 class NewsDayPicker extends  Component {
@@ -23,8 +25,8 @@ class NewsDayPicker extends  Component {
     };
 
     handleDayClick = day => {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range);
+        const {changeDateRange, range} = this.props;
+        changeDateRange(DateUtils.addDayToRange(day, range));
     };
 
     handleResetClick = () => {
@@ -32,7 +34,7 @@ class NewsDayPicker extends  Component {
     };
 
     render() {
-        const { from, to } = this.state;
+        const { from, to } = this.props.range;
         const modifiers = { start: from, end: to };
 
         return(
@@ -66,7 +68,7 @@ class NewsDayPicker extends  Component {
     }
 }
 
-export default NewsDayPicker;
+export default connect((state => ({range: state.filters.dateRange})),{changeDateRange})(NewsDayPicker);
 
 
 
