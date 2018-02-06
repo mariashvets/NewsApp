@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import accordion from '../decorators/accordion';
 import Article from './Article/index.js';
 import {connect} from 'react-redux';
+import {filteredArticleSelector} from '../selectors';
 
 
 class ArticleList  extends Component {
@@ -33,30 +34,9 @@ class ArticleList  extends Component {
     }
 }
 
-export default connect(({articles}) => ({articles}))(accordion(ArticleList));
+export default connect((state) => {
+    return {
+        articles: filteredArticleSelector(state)
+    }
 
-// function(state){
-//     return {
-//         articles: state.articles;
-//     }
-// }
-
-
-//
-// export default function ArticleList ({articles}) {
-//
-//     const elements = articles.map((article) => {
-//
-//         return <li key={article.id}>
-//                     <Article  article={article}/>
-//                 </li>
-//     });
-//     return (
-//         <ul>{elements}</ul>
-//     )
-// }
-//
-// ArticleList.PropTypes = {
-//     articles: PropTypes.array.isRequired
-// };
-
+})(accordion(ArticleList));

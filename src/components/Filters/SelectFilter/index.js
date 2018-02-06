@@ -20,7 +20,7 @@ class SelectFilter extends Component {
         const {articles, selected} = this.props;
         const options = articles.map(article => ({
             label: article.title,
-            value: article.text
+            value: article.id
         }));
         return (<div>
                 <Select options={options} value={selected} onChange={this.handleSelectionChange} multi/>
