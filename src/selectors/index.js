@@ -15,4 +15,14 @@ export const filteredArticleSelector = createSelector (articlesGetter, filtersGe
 });
 
 
+export const commentsGetter = state => state.comments;
+export const idGetter = (state, props) => props.id;
+
+export const commentSelectorFactory = () => createSelector (commentsGetter, idGetter, (comments, id) => {
+
+    console.log('----', 'find comment', id);
+    return comments.find(comment => comment.id === id)
+});
+
+
 

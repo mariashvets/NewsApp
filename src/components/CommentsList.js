@@ -26,14 +26,14 @@ import toggleOpen from '../decorators/toggleOpen';
 
         return (
             <ul>
-                {comments.map(comment => <li key={comment.id}><Comment comment={comment}/></li>)}
+                {comments.map(id => <li key={id}><Comment id={id}/></li>)}
             </ul>
         );
     }
 }
 
-CommentsList.PropTypes = {
-    comments: PropTypes.array,
+CommentsList.propTypes = {
+    comments: PropTypes.array.isRequired,
     isOpen: PropTypes.bool,
     toggleOpen: PropTypes.func
 };
