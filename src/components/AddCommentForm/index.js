@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {addComment} from '../../AC';
+import {connect} from 'react-redux';
 import './style.css';
 
 class AddCommentsForm extends Component {
@@ -8,7 +10,7 @@ class AddCommentsForm extends Component {
 
     state = {
         user : '',
-        comment: '',
+        text: '',
     };
 
     render(){
@@ -20,11 +22,11 @@ class AddCommentsForm extends Component {
                              onChange={this.handleChange('user')}/>
 
                 {/*<label htmlFor="comment"*/}
-                       {/*className={this.state.valid}> {this.state.errorText}</label>*/}
+                       {/*className={this.showError()}>Check your form please once again</label>*/}
 
-                comment: <input className={this.getClassName('comment')}
-                                value={this.state.comment}
-                                onChange={this.handleChange('comment')}/>
+                comment: <input className={this.getClassName('text')}
+                                value={this.state.text}
+                                onChange={this.handleChange('text')}/>
 
                 <input type="submit" value="Submit"/>
             </form>
@@ -33,14 +35,20 @@ class AddCommentsForm extends Component {
 
     handleSubmit = (ev) => {
         ev.preventDefault();
-        console.log(this.state);
-        this.setState({
-            user: '',
-            comment: ''
-        })
+        if(this.validate('user') && this.validate('text')) {
+            this.props.addComment(this.state);
+
+            this.setState({
+                user: '',
+                text: ''
+            })
+        }
     };
 
+    validate = type => this.state[type].length && this.state[type].length > 10;
+
     getClassName = type => this.state[type].length && this.state[type].length < 10 ? 'form-input__error' : '';
+
 
     handleChange = (type) => (ev) => {
         const {value} = ev.target;
@@ -50,9 +58,6 @@ class AddCommentsForm extends Component {
             [type]: value,
         })
     }
-
-
-
 }
 
-export default AddCommentsForm;
+export default connect(null,{addComment})(AddCommentsForm);
