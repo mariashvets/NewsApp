@@ -1,27 +1,35 @@
 import {normalizedArticles as defaultArticles} from '../fixtures';
 import {DELETE_ARTICLE, ADD_COMMENT} from '../constants';
+import {OrderedMap , Map, Record} from 'immutable';
+import {arrayToMap} from "../utils";
 
-const articlesMap = defaultArticles.reduce((acc, article) => ({
-    ...acc, [article.id]: article
-}), {});
+const ArticleModel = Record({
+    id: null,
+    date: null,
+    title: null,
+    text: '',
+    comments: []
+});
 
-export default (articles = articlesMap, action) => {
+
+const collection = arrayToMap(defaultArticles, ArticleModel);
+
+export default (articles = collection, action) => {
     const {type, payload, randomId} = action;
 
     switch (type) {
         case DELETE_ARTICLE:
-            const tempArticles = articles;
-            delete tempArticles[payload.id];
-            return tempArticles;
+            return articles.delete(payload.id);
 
         case ADD_COMMENT:
-            return {
-                ...articles,
-                [payload.articleId] : {
-                    ...articles[payload.articleId],
-                    comments:(articles[payload.articleId].comments || []).concat(randomId)
-                }
-            }
+            return articles.updateIn([payload.articleId, 'comments'], (comments) => comments.concat(randomId));
+            // return {
+            //     ...articles,
+            //     [payload.articleId] : {
+            //         ...articles[payload.articleId],
+            //         comments:(articles[payload.articleId].comments || []).concat(randomId)
+            //     }
+            // }
     }
     return articles;
 }
