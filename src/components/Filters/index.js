@@ -6,18 +6,14 @@ import {connect} from 'react-redux';
 
 function Filters (props) {
 
-        const options = props.articles.map(article => ({
-            label: article.title,
-            value: article.id
-        }));
         return (<div>
-                    <SelectFilter options={options}/>
+                    <SelectFilter/>
                     <NewsDayPicker/>
                 </div>);
 }
 
 Filters.propTypes = {
-    articles: PropTypes.array
+    articles: PropTypes.object
 };
 
 export default connect(({articles}) => ({articles}))(Filters);

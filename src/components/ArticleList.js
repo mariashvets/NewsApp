@@ -20,12 +20,12 @@ class ArticleList  extends Component {
 
     render(){
         const {articles, openItemId, toggleItem} = this.props;
-        const elements = articles.map((article) => {
+        const elements = Object.keys(articles).map(key => {
 
-            return <li key={article.id} ref={article.id}>
-                <Article article={article}
-                         isOpen={article.id === openItemId}
-                         toggleOpen={toggleItem(article.id)}/>
+            return <li key={key} ref={key}>
+                <Article article={articles[key]}
+                         isOpen={key === openItemId}
+                         toggleOpen={toggleItem(key)}/>
             </li>
         });
         return (

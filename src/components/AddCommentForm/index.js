@@ -35,8 +35,9 @@ class AddCommentsForm extends Component {
 
     handleSubmit = (ev) => {
         ev.preventDefault();
+        const {addComment, articleId}  = this.props;
         if(this.validate('user') && this.validate('text')) {
-            this.props.addComment(this.state);
+            addComment(this.state, articleId);
 
             this.setState({
                 user: '',

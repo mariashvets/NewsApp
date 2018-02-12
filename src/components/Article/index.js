@@ -30,16 +30,16 @@ class Article extends Component {
         console.log('----', 'updating');
     }
 
-    shouldComponentUpdate (nextProps, nextState) {
-        return nextProps.isOpen !== this.props.isOpen;
-    }
+    // shouldComponentUpdate (nextProps, nextState) {
+    //     return nextProps.isOpen !== this.props.isOpen;
+    // }
 
     getBody() {
         const {isOpen, article} = this.props;
         return isOpen &&
             <div>
                 {article.text}
-                <CommentsList comments = {article.comments}/>
+                <CommentsList comments = {article.comments} articleId = {article.id}/>
             </div>
     }
 

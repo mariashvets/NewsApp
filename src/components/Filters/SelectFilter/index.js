@@ -8,7 +8,7 @@ import {changeSelection} from '../../../AC';
 class SelectFilter extends Component {
 
     static propTypes = {
-        articles: PropTypes.array.isRequired
+        articles: PropTypes.object.isRequired
     };
 
     constructor(){
@@ -16,12 +16,12 @@ class SelectFilter extends Component {
     }
 
     render(){
-
         const {articles, selected} = this.props;
-        const options = articles.map(article => ({
-            label: article.title,
-            value: article.id
+        const options = Object.keys(articles).map(key => ({
+            label: articles[key].title,
+            value: articles[key].id
         }));
+
         return (<div>
                 <Select options={options} value={selected} onChange={this.handleSelectionChange} multi/>
             </div>);

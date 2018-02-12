@@ -6,12 +6,13 @@ export const filtersGetter = state => state.filters;
 export const filteredArticleSelector = createSelector (articlesGetter, filtersGetter, (articles, filters) => {
     const {selected, dateRange: {from, to}} = filters;
 
-    return articles.filter(article => {
-        const published = Date.parse(article.date);
+    return Object.keys(articles).reduce((acc, id)=> {
+        const published = Date.parse(articles[id].date);
 
-        return (!selected.length || selected.includes(article.id)) &&
-            (!from || !to || (published > from) && (published < to))
-    })
+
+        if ((!selected.length || selected.includes(articles[id])) &&
+            (!from || !to || (published > from) && (published < to))) return {...acc, [id]: articles[id]};
+    },{})
 });
 
 

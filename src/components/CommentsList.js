@@ -6,14 +6,14 @@ import toggleOpen from '../decorators/toggleOpen';
 
 
  function CommentsList (props) {
-    const {isOpen, toggleOpen} = props;
+    const {isOpen, toggleOpen, articleId} = props;
 
     const title = isOpen ? "Hide comments" : "Show comments";
 
     return (
         <div>
             <h3 onClick={toggleOpen}>{title}</h3>
-            <AddCommentsForm/>
+            <AddCommentsForm articleId= {articleId}/>
             {getComments(props)}
         </div>
     );
