@@ -1,5 +1,4 @@
-import {normalizedArticles as defaultArticles} from '../fixtures';
-import {DELETE_ARTICLE, ADD_COMMENT} from '../constants';
+import {DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES} from '../constants';
 import {OrderedMap , Map, Record} from 'immutable';
 import {arrayToMap} from "../utils";
 
@@ -12,10 +11,10 @@ const ArticleModel = Record({
 });
 
 
-const collection = arrayToMap(defaultArticles, ArticleModel);
+const collection = arrayToMap([], ArticleModel);
 
 export default (articles = collection, action) => {
-    const {type, payload, randomId} = action;
+    const {type, payload, randomId, response} = action;
 
     switch (type) {
         case DELETE_ARTICLE:
@@ -23,13 +22,9 @@ export default (articles = collection, action) => {
 
         case ADD_COMMENT:
             return articles.updateIn([payload.articleId, 'comments'], (comments) => comments.concat(randomId));
-            // return {
-            //     ...articles,
-            //     [payload.articleId] : {
-            //         ...articles[payload.articleId],
-            //         comments:(articles[payload.articleId].comments || []).concat(randomId)
-            //     }
-            // }
+
+        case LOAD_ALL_ARTICLES:
+            return arrayToMap(response, ArticleModel);
     }
     return articles;
 }

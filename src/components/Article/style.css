@@ -6,7 +6,6 @@
 .article-enter-active {
     opacity: 1;
     transition: background 500ms ease-in;
-    background: red;
 }
 
 .article-leave {
@@ -17,8 +16,3 @@
     opacity: 0.01;
     transition: opacity 300ms ease-in;
 }
-
-h3, h2 {
-color:red;
-}
-

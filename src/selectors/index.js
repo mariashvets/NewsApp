@@ -21,6 +21,7 @@ export const commentsGetter = state => state.comments;
 export const idGetter = (state, props) => props.id;
 
 export const commentSelectorFactory = () => createSelector (commentsGetter, idGetter, (comments, id) => {
+    debugger;
 
     return comments.get(id);
 });

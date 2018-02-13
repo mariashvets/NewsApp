@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {commentSelectorFactory} from '../selectors';
 
 function Comment ({comment}){
+    debugger;
         return (
             <div>
                 <div>User:{comment.user}</div>
@@ -14,7 +15,7 @@ function Comment ({comment}){
 
 Comment.propTypes = {
     // comment : PropTypes.string.isRequired
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     comment: PropTypes.shape({
         text: PropTypes.string,
         user: PropTypes.string
