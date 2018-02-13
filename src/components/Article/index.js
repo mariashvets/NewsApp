@@ -1,17 +1,17 @@
 import React, {Component} from "react";
 import CommentsList from "../CommentsList";
+import Loader from '../Loader';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import './style.css';
 import {connect} from 'react-redux';
-import {deleteArticle} from '../../AC/';
+import {deleteArticle, loadArticle} from '../../AC/';
 
 
 class Article extends Component {
 
     render(){
         const {toggleOpen, article} = this.props;
-
         return (
             <section>
                 <h2 onClick={toggleOpen}>{article.title} </h2>
@@ -29,17 +29,23 @@ class Article extends Component {
         console.log('----', 'updating');
     }
 
+    componentWillReceiveProps({isOpen, article, loadArticle}) {
+        if(!article.text && !article.loading && isOpen && !this.props.isOpen)  loadArticle(article.id);
+    }
+
     // shouldComponentUpdate (nextProps, nextState) {
     //     return nextProps.isOpen !== this.props.isOpen;
     // }
 
     getBody() {
         const {isOpen, article} = this.props;
-        return isOpen &&
-            <div>
+
+        if(!isOpen) return null;
+        if(article.loading) return <Loader />;
+        return (<div>
                 {article.text}
                 <CommentsList comments = {article.comments} articleId = {article.id}/>
-            </div>
+            </div>)
     }
 
     handleDelete = ev => {
@@ -51,8 +57,8 @@ class Article extends Component {
 
 Article.PropTypes = {
     article: PropTypes.object.isRequired,
-    toggleOpen: PropTypes.func.isRequired
+    toggleOpen: PropTypes.func.isRequired,
 };
 
-export default connect(null, {deleteArticle})(Article);
+export default connect(null, {deleteArticle, loadArticle})(Article);
 

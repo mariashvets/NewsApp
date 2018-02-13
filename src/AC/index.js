@@ -1,5 +1,16 @@
-import {INCREMENT, DELETE_ARTICLE, CHANGE_SELECTION, CHANGE_DATE_RANGE, ADD_COMMENT, LOAD_ALL_ARTICLES} from '../constants';
-
+import {
+    INCREMENT,
+    DELETE_ARTICLE,
+    CHANGE_SELECTION,
+    CHANGE_DATE_RANGE,
+    ADD_COMMENT,
+    LOAD_ALL_ARTICLES,
+    LOAD_ARTICLE,
+    START,
+    SUCCESS,
+    FAIL
+} from '../constants';
+import $ from 'jQuery';
 
 export function increment() {
     return {
@@ -7,28 +18,28 @@ export function increment() {
     }
 }
 
-export function deleteArticle(id){
+export function deleteArticle(id) {
     return {
         type: DELETE_ARTICLE,
         payload: {id}
     }
 }
 
-export function changeSelection(selected){
+export function changeSelection(selected) {
     return {
         type: CHANGE_SELECTION,
         payload: {selected}
     }
 }
 
-export function changeDateRange(dateRange){
+export function changeDateRange(dateRange) {
     return {
         type: CHANGE_DATE_RANGE,
         payload: {dateRange}
     }
 }
 
-export function addComment(comment, articleId){
+export function addComment(comment, articleId) {
     return {
         type: ADD_COMMENT,
         payload: {comment, articleId},
@@ -36,10 +47,32 @@ export function addComment(comment, articleId){
     }
 }
 
-export function loadAllArticles(){
+export function loadAllArticles() {
     return {
         type: LOAD_ALL_ARTICLES,
-        callAPI:'/api/article'
+        callAPI: '/api/article'
+    }
+}
+
+export function loadArticle(id) {
+    return (dispatch, getState) => {
+        dispatch({
+            type: LOAD_ARTICLE + START,
+            payload: {id}
+        });
+
+        setTimeout(() => {
+            $.get(`/api/article/${id}`)
+
+                .done(response => dispatch({
+                    type: LOAD_ARTICLE + SUCCESS,
+                    payload: {id, response}
+                }))
+                .fail(error => dispatch({
+                    type: LOAD_ARTICLE + ERROR,
+                    payload: {error, id}
+                }))
+        }, 1000)
     }
 }
 
