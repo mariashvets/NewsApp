@@ -7,7 +7,6 @@ import {connect} from 'react-redux';
 import {deleteArticle} from '../../AC/';
 
 
-
 class Article extends Component {
 
     render(){

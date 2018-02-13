@@ -5,11 +5,13 @@ import Article from './Article/index.js';
 import {connect} from 'react-redux';
 import {filteredArticleSelector} from '../selectors';
 import {loadAllArticles} from '../AC';
+import Loader from "./Loader";
 
 class ArticleList  extends Component {
 
     componentDidMount() {
-        this.props.loadAllArticles();
+        const {isLoading, loaded, loadAllArticles} = this.props;
+        if( !isLoading && !loaded ) loadAllArticles();
     }
 
     static propTypes = {
@@ -19,13 +21,15 @@ class ArticleList  extends Component {
     };
 
     render(){
-        const {articles, openItemId, toggleItem} = this.props;
-        const elements = Object.keys(articles).map(key => {
+        const {articles, openItemId, isLoading, toggleItem} = this.props;
+        if(isLoading) return <Loader/>;
 
-            return <li key={key} ref={key}>
-                <Article article={articles[key]}
-                         isOpen={key === openItemId}
-                         toggleOpen={toggleItem(key)}/>
+        const elements = articles.map(article => {
+
+            return <li key={article.id} ref={article.id}>
+                <Article article={article}
+                         isOpen={article.id === openItemId}
+                         toggleOpen={toggleItem(article.id)}/>
             </li>
         });
         return (
@@ -36,7 +40,9 @@ class ArticleList  extends Component {
 
 export default connect((state) => {
     return {
-        articles: filteredArticleSelector(state)
+        articles: filteredArticleSelector(state),
+        isLoading: state.articles.loading,
+        loaded: state.articles.loaded
     }
 
 }, {loadAllArticles})(accordion(ArticleList));

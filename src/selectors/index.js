@@ -1,7 +1,7 @@
 import {createSelector} from 'reselect';
 import {mapToArray} from "../utils";
 
-export const articlesGetter = state => state.articles;
+export const articlesGetter = state => state.articles.entities;
 export const filtersGetter = state => state.filters;
 
 export const filteredArticleSelector = createSelector (articlesGetter, filtersGetter, (articles, filters) => {
@@ -21,8 +21,6 @@ export const commentsGetter = state => state.comments;
 export const idGetter = (state, props) => props.id;
 
 export const commentSelectorFactory = () => createSelector (commentsGetter, idGetter, (comments, id) => {
-    debugger;
-
     return comments.get(id);
 });
 
