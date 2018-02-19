@@ -1,26 +1,45 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Comment from './Comment';
 import AddCommentsForm from './AddCommentForm/index';
+import Loader from './Loader';
 import toggleOpen from '../decorators/toggleOpen';
+import {loadArticleComments} from "../AC";
+import {connect} from 'react-redux';
 
 
- function CommentsList (props) {
-    const {isOpen, toggleOpen, articleId} = props;
+class CommentsList extends Component  {
 
-    const title = isOpen ? "Hide comments" : "Show comments";
+    static propTypes = {
+        comments: PropTypes.array.isRequired,
+        isOpen: PropTypes.bool,
+        toggleOpen: PropTypes.func
+    };
 
-    return (
-        <div>
-            <h3 onClick={toggleOpen}>{title}</h3>
-            <AddCommentsForm articleId= {articleId}/>
-            {getComments(props)}
-        </div>
-    );
+    render () {
+        const {isOpen, toggleOpen, articleId} = this.props;
 
-    function getComments({isOpen, comments = []}) {
+        const title = isOpen ? "Hide comments" : "Show comments";
+
+        return (
+            <div>
+                <h3 onClick={toggleOpen}>{title}</h3>
+                <AddCommentsForm articleId= {articleId}/>
+                {this.getComments()}
+            </div>
+        );
+    }
+
+    componentWillReceiveProps({article, isOpen, loadArticleComments}) {
+        if(isOpen && !article.loadedComments && !article.loadingComments) loadArticleComments(article.id);
+    }
+
+    getComments() {
+        const {article : { loadedComments, loadingComments, id, comments = [] }, isOpen} = this.props;
 
         if(!isOpen) return null;
+        if(loadingComments) return <Loader/>;
+        if(!loadedComments) return null;
 
         if(!comments.length) return <p>No comments yet</p>;
 
@@ -32,12 +51,6 @@ import toggleOpen from '../decorators/toggleOpen';
     }
 }
 
-CommentsList.propTypes = {
-    comments: PropTypes.array.isRequired,
-    isOpen: PropTypes.bool,
-    toggleOpen: PropTypes.func
-};
-
-export default toggleOpen(CommentsList);
+export default connect(null, {loadArticleComments})(toggleOpen(CommentsList));
 
 

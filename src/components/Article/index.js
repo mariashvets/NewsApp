@@ -44,7 +44,7 @@ class Article extends Component {
         if(article.loading) return <Loader />;
         return (<div>
                 {article.text}
-                <CommentsList comments = {article.comments} articleId = {article.id}/>
+                <CommentsList article = {article} />
             </div>)
     }
 

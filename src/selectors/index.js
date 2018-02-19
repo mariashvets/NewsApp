@@ -17,7 +17,7 @@ export const filteredArticleSelector = createSelector (articlesGetter, filtersGe
 });
 
 
-export const commentsGetter = state => state.comments;
+export const commentsGetter = state => state.comments.entities;
 export const idGetter = (state, props) => props.id;
 
 export const commentSelectorFactory = () => createSelector (commentsGetter, idGetter, (comments, id) => {

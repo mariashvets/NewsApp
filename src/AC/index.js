@@ -8,7 +8,8 @@ import {
     LOAD_ARTICLE,
     START,
     SUCCESS,
-    FAIL
+    FAIL,
+    LOAD_ARTICLE_COMMENTS
 } from '../constants';
 import $ from 'jQuery';
 
@@ -46,6 +47,15 @@ export function addComment(comment, articleId) {
         generateId: true,
     }
 }
+
+export function loadArticleComments (articleId) {
+    return {
+        type: LOAD_ARTICLE_COMMENTS,
+        callAPI: `/api/comment?article=${articleId}`,
+        payload: { articleId }
+    }
+}
+
 
 export function loadAllArticles() {
     return {
