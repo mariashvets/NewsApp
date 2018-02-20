@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import ArticleList from '../ArticleList';
-import Charts from '../Charts';
+import ArticlesPage from '../../route_handlers/ArticlesPage';
 import UserForm from '../UserForm';
 import Counter from '../Counter';
 import Filters from '../Filters/index';
-import {HashRouter as Router, Route, Link, NavLink} from 'react-router-dom';
+import { HashRouter as Router, Route, Link, NavLink } from 'react-router-dom';
 
 class App extends Component {
 
@@ -26,7 +25,7 @@ class App extends Component {
 
                     <Route path='/counter' component = {Counter}/>
                     <Route path='/filters' component = {Filters}/>
-                    <Route path='/articles' component = {ArticleList}/>
+                    <Route path='/articles' component = {ArticlesPage}/>
 
                 </div>
             </Router>
