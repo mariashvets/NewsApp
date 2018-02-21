@@ -4,12 +4,13 @@ import Comment from '../components/Comment';
 import Pagination from '../components/Pagination';
 import {loadCommentsPage} from '../AC'
 import {connect} from 'react-redux';
+import Loader from '../components/Loader';
 
 class CommentsPage extends Component {
 
     render() {
-        const {comments, totalComments} = this.props;
-        if(!comments) return null;
+        const {comments = [], totalComments, isLoading} = this.props;
+        if(isLoading) return <Loader/>;
         return (
             <div>
                 Comments Page Component
@@ -26,8 +27,8 @@ class CommentsPage extends Component {
     }
 
     componentDidMount() {
-        const {page, loadCommentsPage, comments} = this.props;
-        if(!comments){
+        const {page, loadCommentsPage, loaded, isLoading} = this.props;
+        if(!loaded && !isLoading){
             loadCommentsPage(page);
         }
     }
@@ -39,6 +40,8 @@ CommentsPage.defaultProps = {};
 export default connect((state, ownProps) => {
     return {
         comments: state.comments.getIn(['loadedPages', `${ownProps.page}`]),
-        totalComments: state.comments.get('totalComments')
+        totalComments: state.comments.totalComments,
+        isLoading: state.comments.isLoading,
+        loaded: state.comments.loaded
     }
 }, {loadCommentsPage})(CommentsPage);

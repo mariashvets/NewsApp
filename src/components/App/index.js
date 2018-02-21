@@ -45,7 +45,6 @@ class App extends Component {
     };
 
     getCommentsPage = ({match}) => {
-        debugger;
         return <CommentsPage page={match.params.page}/>
     }
 
