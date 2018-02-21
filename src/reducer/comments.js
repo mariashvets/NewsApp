@@ -1,4 +1,4 @@
-import {ADD_COMMENT, LOAD_ARTICLE_COMMENTS, SUCCESS} from "../constants";
+import {ADD_COMMENT, LOAD_ARTICLE_COMMENTS, LOAD_COMMENTS_PAGE, SUCCESS} from "../constants";
 import {OrderedMap , Map, Record} from 'immutable';
 import {arrayToMap} from "../utils";
 
@@ -11,7 +11,9 @@ const CommentModel = Record ({
 });
 
 const DefaultReducerState = Record({
-    entities: new OrderedMap({})
+    entities: new OrderedMap({}),
+    loadedPages: new OrderedMap({}),
+    totalComments: 0
 });
 
 export default (comments = DefaultReducerState(), action) => {
@@ -26,6 +28,12 @@ export default (comments = DefaultReducerState(), action) => {
 
         case LOAD_ARTICLE_COMMENTS + SUCCESS:
             return comments.mergeIn(['entities'], arrayToMap(response, CommentModel));
+
+        case LOAD_COMMENTS_PAGE + SUCCESS:
+            return comments
+                .setIn(['loadedPages', payload.page], response.records)
+                .mergeIn(['entities'], arrayToMap(response.records, CommentModel))
+                .set('totalComments', response.total)
     }
     return comments;
 }

@@ -43,10 +43,6 @@ class Article extends Component {
         if(!article || (!article.text && !article.loading))  loadArticle(id);
     };
 
-    // shouldComponentUpdate (nextProps, nextState) {
-    //     return nextProps.isOpen !== this.props.isOpen;
-    // }
-
     getBody() {
         const {isOpen, article} = this.props;
 

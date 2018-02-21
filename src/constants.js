@@ -19,3 +19,5 @@ export const START = '_START';
 export const LOAD_ARTICLE = 'LOAD_ARTICLE';
 
 export const LOAD_ARTICLE_COMMENTS = 'LOAD_ARTICLE_COMMENTS';
+
+export const LOAD_COMMENTS_PAGE = 'LOAD_COMMENTS_PAGE';

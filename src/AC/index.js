@@ -9,7 +9,8 @@ import {
     START,
     SUCCESS,
     FAIL,
-    LOAD_ARTICLE_COMMENTS
+    LOAD_ARTICLE_COMMENTS,
+    LOAD_COMMENTS_PAGE
 } from '../constants';
 import $ from 'jQuery';
 
@@ -53,6 +54,14 @@ export function loadArticleComments (articleId) {
         type: LOAD_ARTICLE_COMMENTS,
         callAPI: `/api/comment?article=${articleId}`,
         payload: { articleId }
+    }
+}
+
+export function loadCommentsPage (page) {
+    return {
+        type: LOAD_COMMENTS_PAGE,
+        callAPI: `/api/comment?limit=5&offset=${page*5}`,
+        payload: { page }
     }
 }
 
