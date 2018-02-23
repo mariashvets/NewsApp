@@ -29,7 +29,7 @@ class App extends Component {
                         <Route path='/articles/new' render={this.getNewArticleComponent}/>
                         <Route path='/articles/:article' render={this.getArticleComponent}/>
                         <Route path='/articles' component={ArticlesPage}/>
-                        <Route path='/comments/:page' render={this.getCommentsPage}/>
+                        <Route path='/comments/:page' component={CommentsPage}/>
                     </Switch>
                 </div>
             </Router>
@@ -43,11 +43,6 @@ class App extends Component {
     getArticleComponent = ({match}) => {
         return <Article id={match.params.article} isOpen/>
     };
-
-    getCommentsPage = ({match}) => {
-        return <CommentsPage page={match.params.page}/>
-    }
-
 }
 
 export default App;
