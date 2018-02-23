@@ -5,7 +5,8 @@ import UserForm from '../UserForm';
 import Counter from '../Counter';
 import Filters from '../Filters/index';
 import Article from '../Article/index';
-import CommentsPage from "../../route_handlers/CommentsPage";
+import NotFoundPage from '../NotFoundPage';
+ import CommentsPage from "../../route_handlers/CommentsPage";
 import {BrowserRouter as Router, Route, Link, NavLink, Switch, Redirect} from 'react-router-dom';
 
 class App extends Component {
@@ -30,6 +31,7 @@ class App extends Component {
                         <Route path='/articles/:article' render={this.getArticleComponent}/>
                         <Route path='/articles' component={ArticlesPage}/>
                         <Route path='/comments' component={CommentsPage}/>
+                        <Route path='*' component={NotFoundPage}/>
                     </Switch>
                 </div>
             </Router>
