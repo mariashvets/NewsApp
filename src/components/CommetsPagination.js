@@ -4,7 +4,7 @@ import Comment from '../components/Comment';
 import {loadCommentsPage} from '../AC'
 import {connect} from 'react-redux';
 import Loader from '../components/Loader';
-import {BrowserRouter as Router, Route, Link, NavLink, Switch} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 class CommentsPage extends Component {
