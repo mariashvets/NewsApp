@@ -13,6 +13,7 @@ import {
     LOAD_COMMENTS_PAGE
 } from '../constants';
 import $ from 'jQuery';
+import {push, replace} from 'react-router-redux';
 
 export function increment() {
     return {
@@ -87,10 +88,13 @@ export function loadArticle(id) {
                     type: LOAD_ARTICLE + SUCCESS,
                     payload: {id, response}
                 }))
-                .fail(error => dispatch({
-                    type: LOAD_ARTICLE + ERROR,
-                    payload: {error, id}
-                }))
+                .fail(error => {
+                    dispatch({
+                        type: LOAD_ARTICLE + FAIL,
+                        payload: {error, id}
+                    });
+                    dispatch(replace('/error'))
+                })
         }, 1000)
     }
 }

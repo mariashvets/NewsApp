@@ -4,6 +4,8 @@ import logger from '../middlewares/logger';
 import idGenerator from '../middlewares/idGenerator';
 import api from '../middlewares/api';
 import thunk from 'redux-thunk';
+import {routerMiddleware} from 'react-router-redux';
+import history from '../history';
 
 const composeEnhancers =
     typeof window === 'object' &&
@@ -13,7 +15,7 @@ const composeEnhancers =
         }) : compose;
 
 const enhancer = composeEnhancers(
-    applyMiddleware( thunk, idGenerator, api, logger )
+    applyMiddleware( routerMiddleware(history), thunk, idGenerator, api, logger )
 //    other store enhancers if any
 );
 

@@ -3,8 +3,10 @@ import counterReducer from './counter';
 import articles from './articles';
 import filters from './filters';
 import comments from './comments';
+import {routerReducer} from 'react-router-redux';
 
 export default combineReducers ({
     counter: counterReducer,
-    articles, filters, comments
+    articles, filters, comments,
+    router: routerReducer
 });

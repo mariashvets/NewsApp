@@ -6,8 +6,10 @@ import Counter from '../Counter';
 import Filters from '../Filters/index';
 import Article from '../Article/index';
 import NotFoundPage from '../NotFoundPage';
- import CommentsPage from "../../route_handlers/CommentsPage";
-import {BrowserRouter as Router, Route, Link, NavLink, Switch, Redirect} from 'react-router-dom';
+import CommentsPage from "../../route_handlers/CommentsPage";
+import {Route, Link, NavLink, Switch, Redirect} from 'react-router-dom';
+import {ConnectedRouter as Router} from 'react-router-redux';
+import history from '../../history';
 
 class App extends Component {
 
@@ -16,7 +18,7 @@ class App extends Component {
 
     render() {
         return (
-            <Router>
+            <Router history={history}>
                 <div>
                     <ul>
                         <li><NavLink to='/counter' activeStyle={{color: 'red'}}>Counter</NavLink></li>
