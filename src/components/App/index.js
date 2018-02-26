@@ -10,6 +10,8 @@ import CommentsPage from "../../route_handlers/CommentsPage";
 import {Route, Link, NavLink, Switch, Redirect} from 'react-router-dom';
 import {ConnectedRouter as Router} from 'react-router-redux';
 import history from '../../history';
+import Menu from "../Menu";
+import MenuItem from "../MenuItem";
 
 class App extends Component {
 
@@ -33,11 +35,11 @@ class App extends Component {
         return (
             <Router history={history}>
                 <div>
-                    <ul>
-                        <li><NavLink to='/counter' activeStyle={{color: 'red'}}>Counter</NavLink></li>
-                        <li><NavLink to='/filters' activeStyle={{color: 'red'}}>Filters</NavLink></li>
-                        <li><NavLink to='/articles' activeStyle={{color: 'red'}}>Articles</NavLink></li>
-                    </ul>
+                    <Menu>
+                        <MenuItem path={'/counter'}/>
+                        <MenuItem path={'/filters'}/>
+                        <MenuItem path={'/articles'}/>
+                    </Menu>
                     <UserForm value = {this.state.username} onChange = {this.handleUserChange}/>
                     <Switch>
                         <Route path='/counter' component={Counter} exact/>
