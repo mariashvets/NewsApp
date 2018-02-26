@@ -10,6 +10,11 @@ import {connect} from 'react-redux';
 
 class CommentsList extends Component  {
 
+    static contextTypes = {
+       store:  PropTypes.object,
+       router: PropTypes.object
+    };
+
     static propTypes = {
         comments: PropTypes.array,
         isOpen: PropTypes.bool,
@@ -17,6 +22,7 @@ class CommentsList extends Component  {
     };
 
     render () {
+        console.log('context', this.context);
         const {isOpen, toggleOpen, articleId} = this.props;
 
         const title = isOpen ? "Hide comments" : "Show comments";

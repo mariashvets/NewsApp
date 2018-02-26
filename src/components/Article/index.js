@@ -10,12 +10,17 @@ import {deleteArticle, loadArticle} from '../../AC/';
 
 class Article extends Component {
 
+    static contextTypes = {
+      user: PropTypes.string
+    };
+
     render(){
         const {toggleOpen, article} = this.props;
         if (!article) return null;
         return (
             <section>
                 <h2 onClick={toggleOpen}>{article.title} </h2>
+                <h3>User: {this.context.user}</h3>
                 <a href="#" onClick={this.handleDelete}>delete me</a>
                 <CSSTransitionGroup transitionName="article"
                                     transitionEnterTimeout={500}

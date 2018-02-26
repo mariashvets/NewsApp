@@ -15,6 +15,19 @@ class App extends Component {
 
     static propTypes = {};
 
+    static childContextTypes = {
+        user: PropTypes.string
+    };
+
+    getChildContext () {
+        return {
+            user: this.state.username
+        }
+    };
+
+    state = {
+        username: ''
+    };
 
     render() {
         return (
@@ -25,7 +38,7 @@ class App extends Component {
                         <li><NavLink to='/filters' activeStyle={{color: 'red'}}>Filters</NavLink></li>
                         <li><NavLink to='/articles' activeStyle={{color: 'red'}}>Articles</NavLink></li>
                     </ul>
-                    <UserForm/>
+                    <UserForm value = {this.state.username} onChange = {this.handleUserChange}/>
                     <Switch>
                         <Route path='/counter' component={Counter} exact/>
                         <Route path='/filters' component={Filters}/>
@@ -39,6 +52,8 @@ class App extends Component {
             </Router>
         )
     }
+
+    handleUserChange = (username) => this.setState({username});
 
     getNewArticleComponent = () => {
         return <h2>New Article Component</h2>
