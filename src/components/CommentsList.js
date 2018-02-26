@@ -23,14 +23,14 @@ class CommentsList extends Component  {
 
     render () {
         console.log('context', this.context);
-        const {isOpen, toggleOpen, articleId} = this.props;
+        const {isOpen, toggleOpen, article} = this.props;
 
         const title = isOpen ? "Hide comments" : "Show comments";
 
         return (
             <div>
                 <h3 onClick={toggleOpen}>{title}</h3>
-                <AddCommentsForm articleId= {articleId}/>
+                <AddCommentsForm articleId= {article.id}/>
                 {this.getComments()}
             </div>
         );
