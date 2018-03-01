@@ -38,15 +38,20 @@ export default (articles = new DefaultReducerState(), action) => {
 
         case LOAD_ALL_ARTICLES + SUCCESS:
             return articles
-                .set('entities', arrayToMap(response, ArticleModel))
+                .update('entities',entities => arrayToMap(response, ArticleModel).merge(entities))
                 .set('loading', false)
                 .set('loaded', true);
 
         case LOAD_ARTICLE + START:
-            return articles.setIn(['entities', payload.id, 'loading'], true);
+            return articles.updateIn(
+                ['entities', payload.id],
+                new ArticleModel({id:payload.id}),
+                article => article.set('loading', true));
 
         case LOAD_ARTICLE + SUCCESS:
-            return articles.setIn(['entities', payload.id], new ArticleModel(payload.response));
+            return articles
+                .setIn(['entities', payload.id], new ArticleModel(payload.response))
+                .setIn(['entities', payload.id, 'loading'], false);
 
         case LOAD_ARTICLE_COMMENTS + START:
             return articles.setIn(['entities', payload.articleId, 'loadingComments' ], true);

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Comment from './Comment';
 import AddCommentsForm from './AddCommentForm/index';
 import Loader from './Loader';
+import LocalizedText from './LocalizedText';
 import toggleOpen from '../decorators/toggleOpen';
 import {loadArticleComments} from "../AC";
 import {connect} from 'react-redux';
@@ -25,11 +26,11 @@ class CommentsList extends Component  {
         console.log('context', this.context);
         const {isOpen, toggleOpen, article} = this.props;
 
-        const title = isOpen ? "Hide comments" : "Show comments";
+        const title = isOpen ? "hide comments" : "show comments";
 
         return (
             <div>
-                <h3 onClick={toggleOpen}>{title}</h3>
+                <h3 onClick={toggleOpen}><LocalizedText>{title}</LocalizedText></h3>
                 <AddCommentsForm articleId= {article.id}/>
                 {this.getComments()}
             </div>
@@ -57,6 +58,6 @@ class CommentsList extends Component  {
     }
 }
 
-export default connect(null, {loadArticleComments})(toggleOpen(CommentsList));
+export default connect(null, {loadArticleComments}, null, {pure: false})(toggleOpen(CommentsList));
 
 

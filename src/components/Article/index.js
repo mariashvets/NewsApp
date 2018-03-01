@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import CommentsList from "../CommentsList";
 import Loader from '../Loader';
+import LocalizedText from '../LocalizedText';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import './style.css';
@@ -21,7 +22,7 @@ class Article extends Component {
             <section>
                 <h2 onClick={toggleOpen}>{article.title} </h2>
                 <h3>User: {this.context.user}</h3>
-                <a href="#" onClick={this.handleDelete}>delete me</a>
+                <a href="#" onClick={this.handleDelete}><LocalizedText>delete me</LocalizedText></a>
                 <CSSTransitionGroup transitionName="article"
                                     transitionEnterTimeout={500}
                                     transitionLeaveTimeout={300}>
@@ -39,9 +40,9 @@ class Article extends Component {
         this.checkAndLoad(this.props);
     }
 
-
     componentWillReceiveProps(nextProps) {
         this.checkAndLoad(nextProps);
+
     }
 
     checkAndLoad ({article, loadArticle, id}) {
@@ -76,5 +77,5 @@ export default connect((state, {id}) => {
     return {
         article: state.articles.getIn(['entities',id])
     }
-}, {deleteArticle, loadArticle})(Article);
+}, {deleteArticle, loadArticle}, null, {pure: false})(Article);
 
